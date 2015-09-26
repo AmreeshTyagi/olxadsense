@@ -1,25 +1,9 @@
 angular.module('olxadsense.controllers', [])
 
-.controller('AppCtrl', function ($scope, $state) {
+.controller('AppCtrl', function ($scope, $state,$rootScope) {
+    
         $scope.model = {
-            cities: [
-                {
-                    Id: 1,
-                    Name: 'Delhi'
-                },
-                {
-                    Id: 2,
-                    Name: 'Banglore'
-                },
-                {
-                    Id: 3,
-                    Name: 'Noida'
-                },
-                {
-                    Id: 4,
-                    Name: 'Mumbai'
-                }
-    ],
+            cities: $rootScope.cities,
             categories: [
                 {
                     Id: 1,
@@ -86,34 +70,9 @@ angular.module('olxadsense.controllers', [])
 
     })
 
-.controller('MapCtrl', function ($scope, $state) {
+.controller('MapCtrl', function ($scope, $state,$rootScope) {
   
-  var cities = [
-    {
-        city : 'Noida',
-        desc : 'Noida city!',
-        lat : 28.5355161,
-        long : 77.3910265
-    },
-    {
-        city : 'Delhi',
-        desc : 'Capital of India',
-        lat : 28.7040592,
-        long : 77.1024902
-    },
-    {
-        city : 'Mumbai',
-        desc : 'Mumbai..!',
-        lat : 19.0759837,
-        long : 72.8776559
-    },
-      {
-        city : 'Bangalore',
-        desc : 'Bangalore..!',
-        lat : 12.9715987,
-        long :77.5945627
-    }
-];
+  var cities=$rootScope.cities;
     
       
   var mapOptions = {

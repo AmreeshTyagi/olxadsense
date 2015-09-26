@@ -6,8 +6,8 @@
                 Select your city
             </div>
             <select>
-                <option ng-repeat="city in model.cities" value="{{city.Id}}">
-                    {{city.Name}}
+                <option ng-repeat="city in model.cities" value="{{city.id}}">
+                    {{city.city}}
                 </option>
             </select>
         </label>
@@ -41,7 +41,7 @@
    <div ng-controller="MapCtrl">
     <div id="map"></div>
     <div id="class" ng-repeat="marker in markers | orderBy : 'title'">
-         <a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a>
+<!--         <a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a>-->
     </div>
 </div>
     
