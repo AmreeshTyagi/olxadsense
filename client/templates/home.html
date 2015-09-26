@@ -5,7 +5,7 @@
             <div class="input-label">
                 Select your city
             </div>
-            <select>
+            <select ng-click="onCityClick()">
                 <option ng-repeat="city in model.cities" value="{{city.id}}">
                     {{city.city}}
                 </option>
@@ -22,7 +22,7 @@
         <div ng-repeat="cat in model.categories">
             <div class="col">
                 <div class="list card">
-                    <div class="item item-avatar" ng-click="onCategoryClick($index)"  ng-class="{ 'cat-selected': $index == selectedIndex }">
+                    <div class="item item-avatar" ng-click="onCategoryClick($index,cat)"  ng-class="{ 'cat-selected': $index == selectedIndex }">
                         <img src="{{cat.ImageUrl}}">
                         <h2>{{cat.Name}}</h2>
                         <p>{{cat.Details}}</p>

@@ -43,6 +43,7 @@ angular.module('olxadsense.controllers', [])
 
         ads: [{
                 Id: 1,
+                Name: 'Mobile ad1',
                 CategoryId: 1,
                 AdIconUrl: '',
                 AdThumbUrl: '',
@@ -50,6 +51,7 @@ angular.module('olxadsense.controllers', [])
                 },
             {
                 Id: 2,
+                Name: 'Mobile ad2',
                 CategoryId: 1,
                 AdIconUrl: '',
                 AdThumbUrl: '',
@@ -57,6 +59,7 @@ angular.module('olxadsense.controllers', [])
                 },
             {
                 Id: 3,
+                Name: 'Car ad1',
                 CategoryId: 2,
                 AdIconUrl: '',
                 AdThumbUrl: '',
@@ -65,6 +68,7 @@ angular.module('olxadsense.controllers', [])
             {
                 Id: 4,
                 CategoryId: 1,
+                Name: 'Pat ad1',
                 AdIconUrl: '',
                 AdThumbUrl: '',
                 AdDetails: ''
@@ -95,7 +99,7 @@ angular.module('olxadsense.controllers', [])
             position: new google.maps.LatLng(info.lat, info.long),
             title: info.city
         });
-        marker.content = '<div class="infoWindowContent">' + info.desc + '</div>';
+        marker.content = '<div class="infoWindowContent">Your are previewing ad' + info.adname + '</div>';
 
         google.maps.event.addListener(marker, 'click', function () {
             infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
@@ -105,18 +109,36 @@ angular.module('olxadsense.controllers', [])
         $scope.markers.push(marker);
 
     }
-
-    for (i = 0; i < cities.length; i++) {
-        createMarker(cities[i]);
-    }
-
     $scope.openInfoWindow = function (e, selectedMarker) {
         e.preventDefault();
         google.maps.event.trigger(selectedMarker, 'click');
     }
+    
+     $scope.onCityClick=function(){
+          $scope.markers=[];
+     }
 
-    $scope.onCategoryClick = function ($index) {
+    $scope.onCategoryClick = function ($index, cat) {
+      $scope.markers = [];
         $scope.selectedIndex = $index;
+        var addata = [];
+        for (var i = 0; i < $scope.model.ads.length; i++) {
+            if ($scope.model.ads[i].CategoryId == cat.Id) {
+                addata.push($scope.model.ads[i]);
+            }
+        }
+
+        for (var i = 0; i < addata.length; i++) {
+            var infodata = [];
+            for (var j = 0; j < cities.length; j++) {
+                if (cities[j].id == addata[i].CategoryId) {
+                    cities[j].adname = addata[i].Name;
+                    infodata.push(cities[j]);
+                }
+            }
+            createMarker(cities[i]);
+        }
+
     }
 
 });
