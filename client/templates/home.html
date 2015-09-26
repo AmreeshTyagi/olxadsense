@@ -1,4 +1,4 @@
-<ion-content has-header="true" padding="true" ng-controller="AppCtrl">
+<ion-content has-header="true" padding="true" ng-controller="MapCtrl">
 
     <div class="list card">
         <label class="item item-input item-select">
@@ -22,26 +22,19 @@
         <div ng-repeat="cat in model.categories">
             <div class="col">
                 <div class="list card">
-                    <div class="item item-avatar">
+                    <div class="item item-avatar" ng-click="onCategoryClick($index)"  ng-class="{ 'cat-selected': $index == selectedIndex }">
                         <img src="{{cat.ImageUrl}}">
                         <h2>{{cat.Name}}</h2>
                         <p>{{cat.Details}}</p>
                     </div>
-
-<!--
-                    <div class="item item-image">
-                        <img src="{{cat.ImageUrl}}">
-                    </div>
--->
                 </div>
             </div>
         </div>
     </div>
     
-   <div ng-controller="MapCtrl">
+   <div>
     <div id="map"></div>
     <div id="class" ng-repeat="marker in markers | orderBy : 'title'">
-<!--         <a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a>-->
     </div>
 </div>
     
