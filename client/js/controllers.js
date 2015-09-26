@@ -115,9 +115,10 @@ angular.module('olxadsense.controllers', [])
     }
 ];
     
+      
   var mapOptions = {
         zoom: 4,
-        center: new google.maps.LatLng(40.0000, -98.0000),
+        center: new google.maps.LatLng(28.7040592, 77.1024902),
         mapTypeId: google.maps.MapTypeId.TERRAIN
     }
 
