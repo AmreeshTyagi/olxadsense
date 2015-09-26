@@ -57,3 +57,8 @@ h2 {
     background-color: #C4E1F2;
     border-color: #70B1D3;
 }
+
+#map {
+    height: 420px;
+    width: 100%;
+}
