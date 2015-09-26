@@ -118,7 +118,7 @@ angular.module('olxadsense.controllers', [])
                 'Error: Your browser doesn\'t support geolocation.');
         }
 
-        initMap();
+        //initMap();
 
     })
     .controller('HomeCtrl', function ($scope, $state) {
