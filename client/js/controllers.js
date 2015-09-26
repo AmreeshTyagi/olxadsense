@@ -79,49 +79,6 @@ angular.module('olxadsense.controllers', [])
 
         $scope.radius = 50;
 
-        //        function initMap() {
-        //            var map = new google.maps.Map(document.getElementById('map'), {
-        //                center: {
-        //                    lat: -34.397,
-        //                    lng: 150.644
-        //                },
-        //                zoom: 6
-        //            });
-        //            var infoWindow = new google.maps.InfoWindow({
-        //                map: map
-        //            });
-        //
-        //            // Try HTML5 geolocation.
-        //            if (navigator.geolocation) {
-        //                navigator.geolocation.getCurrentPosition(function (position) {
-        //                    var pos = {
-        //                        lat: position.coords.latitude,
-        //                        lng: position.coords.longitude
-        //                    };
-        //
-        //                    infoWindow.setPosition(pos);
-        //                    infoWindow.setContent('Location found.');
-        //                    map.setCenter(pos);
-        //                }, function () {
-        //                    handleLocationError(true, infoWindow, map.getCenter());
-        //                });
-        //            } else {
-        //                // Browser doesn't support Geolocation
-        //                handleLocationError(false, infoWindow, map.getCenter());
-        //            }
-        //        }
-        //
-        //        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        //            infoWindow.setPosition(pos);
-        //            infoWindow.setContent(browserHasGeolocation ?
-        //                'Error: The Geolocation service failed.' :
-        //                'Error: Your browser doesn\'t support geolocation.');
-        //        }
-        //
-        //      initMap();
-
-        //  function MapCtrl($scope) {
-
 
 
     })
@@ -130,41 +87,65 @@ angular.module('olxadsense.controllers', [])
     })
 
 .controller('MapCtrl', function ($scope, $state) {
-
-  // var ll = new google.maps.LatLng(13.0810, 80.2740);
-
-    var map;
-
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {
-                lat: -34.397,
-                lng: 150.644
-            },
-            zoom: 8
-        });
+  
+  var cities = [
+    {
+        city : 'Noida',
+        desc : 'Noida city!',
+        lat : 43.7000,
+        long : -79.4000
+    },
+    {
+        city : 'Delhi',
+        desc : 'Capital of India',
+        lat : 40.6700,
+        long : -73.9400
+    },
+    {
+        city : 'Mumbai',
+        desc : 'Mumbai..!',
+        lat : 41.8819,
+        long : -87.6278
     }
+];
     
-     $scope.mapOptions = {
-        center: map,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
+  var mapOptions = {
+        zoom: 4,
+        center: new google.maps.LatLng(40.0000, -98.0000),
+        mapTypeId: google.maps.MapTypeId.TERRAIN
+    }
 
-    //Markers should be added after map is loaded
-    $scope.onMapIdle = function () {
-        if ($scope.myMarkers === undefined) {
-            var marker = new google.maps.Marker({
-                map: $scope.myMap,
-                position: map
-            });
-            $scope.myMarkers = [marker, ];
-        }
-    };
-    $scope.showMarkerInfo = function (marker) {
-        $scope.myInfoWindow.open($scope.myMap, marker);
-    };
+    $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-    initMap();
+    $scope.markers = [];
+    
+    var infoWindow = new google.maps.InfoWindow();
+    
+    var createMarker = function (info){
+        
+        var marker = new google.maps.Marker({
+            map: $scope.map,
+            position: new google.maps.LatLng(info.lat, info.long),
+            title: info.city
+        });
+        marker.content = '<div class="infoWindowContent">' + info.desc + '</div>';
+        
+        google.maps.event.addListener(marker, 'click', function(){
+            infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
+            infoWindow.open($scope.map, marker);
+        });
+        
+        $scope.markers.push(marker);
+        
+    }  
+    
+    for (i = 0; i < cities.length; i++){
+        createMarker(cities[i]);
+    }
+
+    $scope.openInfoWindow = function(e, selectedMarker){
+        e.preventDefault();
+        google.maps.event.trigger(selectedMarker, 'click');
+    }
 
 });
